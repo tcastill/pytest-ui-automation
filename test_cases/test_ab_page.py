@@ -17,7 +17,7 @@ class TestAbPage:
         # Click on A/B Testing
         ab_testing_link = driver.find_element(By.XPATH, "//a[contains(., 'A/B Testing')]")
         ab_testing_link.click()
-        time.sleep(1)
+        driver.implicitly_wait(1)
 
         # Verify page is on A/B Testing
         header_text = driver.find_element(By.TAG_NAME, "h3")
@@ -27,7 +27,7 @@ class TestAbPage:
         # Click Elemental Selenium
         elemental_selenium_link = driver.find_element(By.LINK_TEXT, "Elemental Selenium")
         elemental_selenium_link.click()
-        time.sleep(5)
+        driver.implicitly_wait(5)
 
         # Confirm page landed on Elemental Selenium
 
@@ -60,7 +60,8 @@ class TestAbPage:
         for x in range(6):
             ab_testing_link = driver.find_element(By.XPATH, "//a[contains(., 'A/B Testing')]")
             ab_testing_link.click()
-            time.sleep(1)
+            driver.implicitly_wait(1)
+            print('The amount of times running: $x')
 
             # Verify page is on A/B Testing
             header_text = driver.find_element(By.TAG_NAME, "h3")
