@@ -14,7 +14,6 @@ Pytest is a Python-based test framework that is used to write and execute codes.
 * Automatically support new browser versions
 
 # How do I run tests?
-
 Navigate to root folder and run
 * $ pytest --html=reports/report.html
 * Default Browser is chrome
@@ -23,6 +22,13 @@ Navigate to root folder and run
   * chrome
   * edge
   * firefox
+* To run specific marked tests
+  * pytest --html=reports/report.html -m smoke
+
+# How to run in parallel
+  * use the -n option
+    * -n auto
+    * -n count e.g -n 3 will run 3 windows
 
 # Explicit vs Implicit Waits
 * Explicit wait will automatically retry if the condition returns false and until timeout expires 

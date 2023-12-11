@@ -1,73 +1,44 @@
-import time
-
 import pytest
-from selenium.webdriver.common.by import By
+
+from page_objects.ab_testling_page import AbTestingPage
+from page_objects.elemental_selenium_page import elementalSeleniumPage
+from page_objects.landing_page import LandingPage
 
 
 @pytest.mark.smoke
 @pytest.mark.links
-@pytest.mark.parametrize("base_url,expected_error", [("https://the-internet.herokuapp.com/",
-                                                      "The header is not displayed")])
 class TestAbPage:
 
-    def test_login_to_ab_link(self, driver, base_url, expected_error):
+    def test_login_to_ab_link(self, driver):
         # Go to webpage
-        driver.get(base_url)
+        landing_page = LandingPage(driver)
+        landing_page.open()
 
         # Click on A/B Testing
-        ab_testing_link = driver.find_element(By.XPATH, "//a[contains(., 'A/B Testing')]")
-        ab_testing_link.click()
-        driver.implicitly_wait(1)
+        landing_page.click_ab_testing_link()
 
         # Verify page is on A/B Testing
-        header_text = driver.find_element(By.TAG_NAME, "h3")
-        assert header_text.is_displayed(), expected_error
-        assert header_text.text.__contains__('A/B Test'), "The header is missing A/B text on this page"
+        ab_testing_page = AbTestingPage(driver)
+        ab_testing_page.ab_landing_page_loaded_successfully()
 
-        # Click Elemental Selenium
-        elemental_selenium_link = driver.find_element(By.LINK_TEXT, "Elemental Selenium")
-        elemental_selenium_link.click()
-        driver.implicitly_wait(5)
+        # Click and land on Elemental Selenium
+        elemental_selenium = elementalSeleniumPage(driver)
+        elemental_selenium.elemental_landing_page()
 
-        # Confirm page landed on Elemental Selenium
-
-        # obtain window handle of browser in focus
-        p = driver.current_window_handle
-
-        # obtain parent window handle
-        parent = driver.window_handles[0]
-
-        # obtain browser tab window
-        chld = driver.window_handles[1]
-
-        # switch to browser tab
-        driver.switch_to.window(chld)
-
-        print("Page title for browser tab:")
-        print(driver.title)
-        page_url = driver.current_url
-        print(page_url)
-        assert page_url == "https://elementalselenium.com/", "The url is incorrect for elemental selenium"
-
-        header_text = driver.find_element(By.TAG_NAME, "h1")
-        assert header_text.is_displayed()
-        assert header_text.text == 'Make sure your code lands'
-
-    def test_multiple_login_to_ab_link(self, driver, base_url, expected_error):
+    def test_multiple_login_to_ab_link(self, driver):
         # Go to webpage
-        driver.get(base_url)
+        landing_page = LandingPage(driver)
+        landing_page.open()
 
         for x in range(6):
-            ab_testing_link = driver.find_element(By.XPATH, "//a[contains(., 'A/B Testing')]")
-            ab_testing_link.click()
-            driver.implicitly_wait(1)
+            # driver.implicitly_wait(1)
+            # Click on A/B Testing
+            landing_page.click_ab_testing_link()
             print('The amount of times running: $x')
 
             # Verify page is on A/B Testing
-            header_text = driver.find_element(By.TAG_NAME, "h3")
-            assert header_text.is_displayed(), expected_error
-            assert header_text.text.__contains__('A/B Test'), "The header is missing A/B text on this page"
+            ab_testing_page = AbTestingPage(driver)
+            ab_testing_page.ab_landing_page_loaded_successfully()
 
             # Click back
             driver.back()
-            time.sleep(1)

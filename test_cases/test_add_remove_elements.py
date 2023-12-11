@@ -1,4 +1,3 @@
-import time
 from pydoc import text
 
 import pytest
@@ -13,23 +12,25 @@ class TestAddRemoveElements:
 
     @pytest.mark.regression
     def test_add_remove_elements(self, driver):
+        wait = WebDriverWait(driver, 5)
         # Go to webpage
         driver.get("https://the-internet.herokuapp.com/")
+        assert wait.until(ec.invisibility_of_element_located((By.XPATH, "//a[contains(., 'Welcome to the-internet')]")),
+                          "Should be out of the main page")
 
         allure.attach(driver.get_screenshot_as_png(), name=text, attachment_type=AttachmentType.PNG)
 
         # Click on Add Remove Testing
         ab_testing_link = driver.find_element(By.XPATH, "//a[contains(., 'Add/Remove Elements')]")
         ab_testing_link.click()
-        driver.implicitly_wait(1)
+        assert wait.until(ec.invisibility_of_element_located((By.XPATH, "//a[contains(., 'Welcome to the-internet')]")),
+                          "Should be out of the main page")
 
         # Verify page is on Add Remove Testing
         header_text = driver.find_element(By.TAG_NAME, "h3")
         assert header_text.is_displayed()
         assert header_text.text == 'Add/Remove Elements'
-
-        wait = WebDriverWait(driver, 5)
-        wait.until(ec.presence_of_element_located((By.LINK_TEXT, "Elemental Selenium")))
+        assert wait.until(ec.presence_of_element_located((By.LINK_TEXT, "Elemental Selenium")))
 
         # Click Elemental Selenium
         elemental_selenium_link = driver.find_element(By.LINK_TEXT, "Elemental Selenium")
