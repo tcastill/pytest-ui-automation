@@ -1,4 +1,4 @@
-# Pytest UI Automation
+# UI Automation using Pytest and Python
 
 This repository is to give a working automation sample using a framework called Pytest for python. It runs tests against the page https://the-internet.herokuapp.com/ where it gives examples of different types of website interactions for a user.
 
