@@ -1,0 +1,5 @@
+{
+  "browser": "chrome",
+  "platform": "grid",
+  "remoteUrl": "http://172.18.0.3:5555"
+}

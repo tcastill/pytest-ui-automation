@@ -30,6 +30,14 @@ Navigate to root folder and run
     * -n auto
     * -n count e.g -n 3 will run 3 windows
 
+# How to run in docker
+  * Spin up an instance of the Selenium Grid in docker
+    * This can be spun up using the docker-compose.yml file OR you can sping up Selenium Extensions in Docker Desktop
+  * Options to run docker
+    * --browser remote-chrome  : this will run in the chrome container
+    * --browser remote-firefox : this will run in the firefox container
+    * --browser remote-edge    : this will run in the edge container
+
 # Explicit vs Implicit Waits
 * Explicit wait will automatically retry if the condition returns false and until timeout expires 
   * e.g. WebDriverWait(driver, tieout=3).until(some_condition)

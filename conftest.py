@@ -20,6 +20,12 @@ def driver(request):
         driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
     elif browser == "chrome":
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    elif browser == "remote-chrome":
+        driver = webdriver.Remote('http://localhost:4444/wd/hub', options=webdriver.ChromeOptions())
+    elif browser == "remote-firefox":
+        driver = webdriver.Remote('http://localhost:4444/wd/hub', options=webdriver.FirefoxOptions())
+    elif browser == "remote-edge":
+        driver = webdriver.Remote('http://localhost:4444/wd/hub', options=webdriver.EdgeOptions())
     else:
         raise TypeError(f"Automation does not support browser {browser}")
     driver.implicitly_wait(10)
