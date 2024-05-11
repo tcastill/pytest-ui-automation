@@ -14,6 +14,9 @@ Pytest is a Python-based test framework that is used to write and execute codes.
 * Automatically support new browser versions
 
 # How do I run tests?
+Before running the test. Make sure to install all the required packages to the project
+* pip install -r requirements. txt in your terminal
+
 Navigate to root folder and run
 * $ pytest --html=reports/report.html
 * Default Browser is chrome
